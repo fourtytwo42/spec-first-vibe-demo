@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { categories, priorities, statuses } from '../types'
 import type { RequestDraft, TeamRequest } from '../types'
-import { normalizeDraft, validateDraft } from '../lib/requests'
+import { normalizeDraft, todayAsInputValue, validateDraft } from '../lib/requests'
 import type { DraftErrors } from '../lib/requests'
 
 const newDraft: RequestDraft = { title: '', description: '', category: 'Data', priority: 'Medium', status: 'New', dueDate: '' }
@@ -81,7 +81,8 @@ export function RequestForm({ request, onSave, onClose }: RequestFormProps) {
               <select name="status" value={draft.status} onChange={(event) => update('status', event.target.value)}>{statuses.map((value) => <option key={value}>{value}</option>)}</select>
             </label>
             <label>Due date
-              <input name="dueDate" type="date" value={draft.dueDate} onChange={(event) => update('dueDate', event.target.value)} />
+              <input name="dueDate" type="date" min={todayAsInputValue()} value={draft.dueDate} onChange={(event) => update('dueDate', event.target.value)} aria-invalid={!!errors.dueDate} aria-describedby={fieldError('dueDate')} />
+              {errors.dueDate && <span className="field-error" id="dueDate-error">{errors.dueDate}</span>}
             </label>
           </div>
           <div className="modal-actions">

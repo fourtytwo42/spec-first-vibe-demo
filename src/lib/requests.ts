@@ -18,7 +18,21 @@ export function filterRequests(requests: TeamRequest[], filters: Filters) {
 
 export type DraftErrors = Partial<Record<keyof RequestDraft, string>>
 
-export function validateDraft(draft: RequestDraft): DraftErrors {
+export function todayAsInputValue(now = new Date()) {
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+function isCalendarDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const [year, month, day] = value.split('-').map(Number)
+  const parsed = new Date(Date.UTC(year, month - 1, day))
+  return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day
+}
+
+export function validateDraft(draft: RequestDraft, today = todayAsInputValue()): DraftErrors {
   const errors: DraftErrors = {}
   const title = draft.title.trim()
   const description = draft.description.trim()
@@ -30,6 +44,8 @@ export function validateDraft(draft: RequestDraft): DraftErrors {
   if (!categories.includes(draft.category)) errors.category = 'Choose a category.'
   if (!priorities.includes(draft.priority)) errors.priority = 'Choose a priority.'
   if (!statuses.includes(draft.status)) errors.status = 'Choose a status.'
+  if (draft.dueDate && !isCalendarDate(draft.dueDate)) errors.dueDate = 'Enter a valid due date.'
+  else if (draft.dueDate && draft.dueDate < today) errors.dueDate = 'Due date cannot be in the past.'
 
   return errors
 }

@@ -34,3 +34,5 @@ npm run test:e2e
 ```
 
 The repository uses Vitest and Testing Library for unit/component coverage and Playwright for browser-level acceptance flows.
+
+The recorded acceptance process is available in the [UAT plan](docs/uat-plan.md) and [UAT results](docs/uat-results.md).

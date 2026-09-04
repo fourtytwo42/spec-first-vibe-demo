@@ -61,3 +61,13 @@ test('shows the empty workspace and fits a mobile viewport', async ({ page }) =>
   const sizes = await page.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: document.documentElement.clientWidth }))
   expect(sizes.page).toBeLessThanOrEqual(sizes.viewport)
 })
+
+test('rejects a past due date', async ({ page }) => {
+  await page.getByRole('button', { name: 'New request' }).click()
+  const dialog = page.getByRole('dialog')
+  await dialog.getByLabel('Title *').fill('Check fictional archive')
+  await dialog.getByLabel('Due date').fill('2000-01-01')
+  await dialog.getByRole('button', { name: 'Create request' }).click()
+  await expect(dialog.getByText('Due date cannot be in the past.')).toBeVisible()
+  await expect(dialog).toBeVisible()
+})
