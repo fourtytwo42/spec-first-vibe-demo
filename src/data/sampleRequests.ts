@@ -1,0 +1,48 @@
+import type { TeamRequest } from '../types'
+
+export const sampleRequests: TeamRequest[] = [
+  {
+    id: 'sample-quarterly-dashboard',
+    title: 'Refresh quarterly dashboard',
+    description: 'Update the fictional program metrics and accessibility notes.',
+    category: 'Data',
+    priority: 'High',
+    status: 'In progress',
+    dueDate: '2027-01-15',
+    createdAt: '2026-08-25T14:00:00.000Z',
+    updatedAt: '2026-09-02T16:30:00.000Z',
+  },
+  {
+    id: 'sample-literature-scan',
+    title: 'Review community survey methods',
+    description: 'Prepare a short literature scan using public example sources.',
+    category: 'Research',
+    priority: 'Medium',
+    status: 'New',
+    dueDate: '2027-02-05',
+    createdAt: '2026-08-28T15:20:00.000Z',
+    updatedAt: '2026-08-28T15:20:00.000Z',
+  },
+  {
+    id: 'sample-room-setup',
+    title: 'Coordinate workshop room setup',
+    description: 'Confirm a fictional room layout and printed materials checklist.',
+    category: 'Operations',
+    priority: 'Low',
+    status: 'Blocked',
+    dueDate: '',
+    createdAt: '2026-08-29T17:00:00.000Z',
+    updatedAt: '2026-09-01T13:45:00.000Z',
+  },
+  {
+    id: 'sample-browser-check',
+    title: 'Complete browser compatibility check',
+    description: 'Verify the training prototype in current desktop browsers.',
+    category: 'Technology',
+    priority: 'Medium',
+    status: 'Complete',
+    dueDate: '2027-01-08',
+    createdAt: '2026-08-20T13:00:00.000Z',
+    updatedAt: '2026-09-01T19:15:00.000Z',
+  },
+]
